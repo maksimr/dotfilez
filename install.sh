@@ -12,7 +12,8 @@ if [ -d "$DOTFILE_DIR" ]; then
       --exclude ".gitignore" \
       --exclude "README.md" \
       -avh --no-perms . ~
-    exit
+  else
+    find . -type f -name '.*' | sed s/.\\/// | xargs -I{} echo {} "$HOME/{}"
   fi
 
   if [ ! -d "${HOME}/.zgen" ]; then
@@ -27,6 +28,8 @@ if [ -d "$DOTFILE_DIR" ]; then
   if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
     git clone --depth 1 https://github.com/tmux-plugins/tpm.git "${HOME}/.tmux/plugins/tpm"
   fi
+
+  exit
 fi
 
 git clone $DOTFILE_URL "$DOTFILE_DIR"
