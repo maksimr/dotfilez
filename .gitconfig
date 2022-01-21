@@ -1,0 +1,26 @@
+[user]
+	name = Maksim Ryzhikov
+	email = rv.maksim@gmail.com
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	cl = clone --recursive
+	die = reset --hard
+	g = grep -I --heading --break -p
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+# Search a Git Repo Like a Ninja
+[grep]
+	extendRegexp = true
+        lineNumber = true
+[github]
+	user = maksimr
+[push]
+	default = simple
+[core]
+	precomposeUnicode = true
