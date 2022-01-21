@@ -27,7 +27,7 @@ if [ -d "$DOTFILE_DIR" ]; then
     git clone --depth 1 https://github.com/erikw/tmux-powerline.git "${HOME}/.tmux/tmux-powerline"
   fi
   if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
-    git clone --depth 1 https://github.com/tmux-plugins/tpm.git "${HOME}/.tmux/plugins/tpm"j
+    git clone --depth 1 https://github.com/tmux-plugins/tpm.git "${HOME}/.tmux/plugins/tpm"
   fi
 fi
 
