@@ -4,14 +4,18 @@ DOTFILE_DIR="$HOME/.dotfiles"
 DOTFILE_URL=https://github.com/maksimr/dotfilez.git
 
 if [ -d "$DOTFILE_DIR" ]; then
-  # shellcheck disable=SC2128
-  cd "$(dirname "${BASH_SOURCE}")" || exit
-  rsync --exclude ".git/" \
-    --exclude "install.sh" \
-    --exclude ".gitignore" \
-    --exclude "README.md" \
-    -avh --no-perms . ~
-  exit
+  if [ "$(command -v rsync)" ]; then
+    # shellcheck disable=SC2128
+    cd "$(dirname "${BASH_SOURCE}")" || exit
+    rsync --exclude ".git/" \
+      --exclude "install.sh" \
+      --exclude ".gitignore" \
+      --exclude "README.md" \
+      -avh --no-perms . ~
+    exit
+  else
+    find . -type f -name '.*' | xargs -I{} ln -s {} "$HOME/{}"
+  fi
 
   if [ ! -d "${HOME}/.zgen" ]; then
     git clone --depth 1 https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
