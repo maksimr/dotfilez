@@ -1,3 +1,6 @@
+.tmux/plugins
+.tmux/tmux-powerline
+
 *~
 *.swp
 *.swo
