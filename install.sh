@@ -14,7 +14,7 @@ if [ -d "$DOTFILE_DIR" ]; then
       -avh --no-perms . ~
     exit
   else
-    find . -type f -name '.*' | xargs -I{} ln -s {} "$HOME/{}"
+    find . -type f -name '.*' | sed s/.\\/// | xargs -I{} echo {} "$HOME/{}"
   fi
 
   if [ ! -d "${HOME}/.zgen" ]; then
