@@ -3,14 +3,29 @@
 DOTFILE_DIR="$HOME/.dotfiles"
 DOTFILE_URL=https://github.com/maksimr/dotfilez.git
 
-if [ -d "$DOTFILE_DIR"  ]; then
-  cd "$(dirname "${BASH_SOURCE}")";
+if [ -d "$DOTFILE_DIR" ]; then
+  # shellcheck disable=SC2128
+  cd "$(dirname "${BASH_SOURCE}")" || exit
   rsync --exclude ".git/" \
-        --exclude "install.sh" \
-        --exclude "README.md" \
-        -avh --no-perms . ~;
-  exit;
+    --exclude "install.sh" \
+    --exclude ".gitignore" \
+    --exclude "README.md" \
+    -avh --no-perms . ~
+  exit
+
+  if [ ! -d "${HOME}/.zgen" ]; then
+    git clone --depth 1 https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+  fi
+  if [ ! -d "${HOME}/.fzf" ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
+  fi
+  if [ ! -d "${HOME}/.tmux/tmux-powerline" ]; then
+    git clone --depth 1 https://github.com/erikw/tmux-powerline.git "${HOME}/.tmux/tmux-powerline"
+  fi
+  if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
+    git clone --depth 1 https://github.com/tmux-plugins/tpm.git "${HOME}/.tmux/plugins/tpm"j
+  fi
 fi
 
-git clone $DOTFILE_URL $DOTFILE_DIR
-. $DOTFILE_DIR/install.sh
+git clone $DOTFILE_URL "$DOTFILE_DIR"
+. "$DOTFILE_DIR"/install.sh
