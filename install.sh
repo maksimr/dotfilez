@@ -28,4 +28,4 @@ if [ -d "$DOTFILE_DIR" ]; then
 fi
 
 git clone $DOTFILE_URL "$DOTFILE_DIR"
-. "$DOTFILE_DIR"/install.sh
+source "$DOTFILE_DIR"/install.sh
