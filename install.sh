@@ -13,8 +13,6 @@ if [ -d "$DOTFILE_DIR" ]; then
       --exclude "README.md" \
       -avh --no-perms . ~
     exit
-  else
-    find . -type f -name '.*' | sed s/.\\/// | xargs -I{} echo {} "$HOME/{}"
   fi
 
   if [ ! -d "${HOME}/.zgen" ]; then
