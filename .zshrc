@@ -570,6 +570,9 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export DVM_DIR="$HOME/.dvm"
 export PATH="$DVM_DIR/bin:$PATH"
 export PATH="$HOME/Developer/depot_tools:$PATH"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/"
+export MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
+export INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 
 #### FIG ENV VARIABLES ####
 # Please make sure this block is at the end of this file.
