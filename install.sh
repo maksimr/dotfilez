@@ -3,6 +3,7 @@
 HOME_DIR="$HOME"
 DOTFILE_DIR="$HOME_DIR/.dotfiles"
 DOTFILE_URL=https://github.com/maksimr/dotfilez.git
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 function --git-install() {
   local REPOSITORY="$1"
@@ -18,11 +19,20 @@ function --sync-files() {
     cd "$(dirname "${BASH_SOURCE}")" || exit
     rsync --exclude ".git/" \
       --exclude "install.sh" \
+      --exclude ".idea" \
       --exclude ".gitignore" \
       --exclude "README.md" \
       -avh --no-perms . "$HOME_DIR"
   else
-    find . -type f -name '.*' | sed s/.\\/// | xargs -I{} echo {} "$HOME_DIR/{}"
+    find . -maxdepth 1 -type f,d -name '.*' \
+      -not \( \
+      -path ./.git \
+      -o -path ./.idea \
+      -o -path . \
+      -o -path ./.gitignore \
+      \) \
+      | sed s/.\\/// \
+      | xargs -I{} ln -s "$SCRIPT_DIR/{}" "$HOME_DIR/{}"
   fi
 }
 
@@ -49,6 +59,6 @@ function --main() {
 
 
 case $1 in
-  --install) --main;;
-  *)  git clone $DOTFILE_URL "$DOTFILE_DIR" &&  source "$DOTFILE_DIR/install.sh" --install;;
+  --raw) --main;;
+  *)  git clone $DOTFILE_URL "$DOTFILE_DIR" &&  source "$DOTFILE_DIR/install.sh" --raw;;
 esac
