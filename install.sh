@@ -57,8 +57,9 @@ function --main() {
   #curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 }
 
-
-case $1 in
-  --raw) --main;;
-  *)  git clone $DOTFILE_URL "$DOTFILE_DIR" &&  source "$DOTFILE_DIR/install.sh" --raw;;
-esac
+if [ "${BASH_SOURCE[0]}" ]; then
+  --main
+else
+  git clone $DOTFILE_URL "$DOTFILE_DIR"
+  source "$DOTFILE_DIR/install.sh"
+fi
